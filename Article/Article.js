@@ -114,6 +114,7 @@ const data = [
   */
 
   const articles = document.querySelector('.articles');
+  const topHeader = document.querySelector('.header');
 
   function createArticle (title, date, p1, p2, p3){
     const article = document.createElement('div');
@@ -123,11 +124,13 @@ const data = [
     const paraTwo = document.createElement('p');
     const paraThree = document.createElement('p');
     const button = document.createElement('span');
+    const closeButton = document.createElement('button');
+
 
     article.classList.add('article');
     articleDate.classList.add('date');
     button.classList.add('expandButton');
-
+    closeButton.classList.add('close-button');
 
 
     article.appendChild(articleTitle);
@@ -136,16 +139,34 @@ const data = [
     article.appendChild(paraTwo);
     article.appendChild(paraThree);
     article.appendChild(button);
+    article.appendChild(closeButton);
 
     articleTitle.textContent = title;
     articleDate.textContent = date;
     paraOne.textContent = p1;
     paraTwo.textContent = p2;
     paraThree.textContent = p3;
-    button.textContent = 'X';
+    button.textContent = 'Click to Open';
+    closeButton.textContent = 'X';
+
+    let buttonState = false;
 
     button.addEventListener('click', function(){
       article.classList.toggle('article-open');
+      if (!buttonState) {
+        button.textContent = 'Click to Close';
+        buttonState = true;
+      } else {
+        button.textContent = 'Click to Open';
+        buttonState = false;
+      }
+    });
+
+    closeButton.addEventListener('click', function(){
+      article.classList.add('fade-out');
+      setTimeout(() => { article.remove(); }, 500);
+      
+      // article.remove();
     });
 
     return article;
@@ -155,7 +176,6 @@ const data = [
   data.map(item => {
     articles.appendChild(createArticle(item.title, item.date, item.firstParagraph, item.secondParagraph, item.thirdParagraph));
   });
-
 
 
   /*
@@ -169,3 +189,62 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+
+$( ".menu-button" ).click(function() {
+  $( ".menu" ).animate({
+    width: "toggle",
+    opacity: 'toggle'
+  });
+});
+
+
+const addButton = document.createElement('button');
+const titleInput = document.createElement('input');
+titleInput.classList.add('title-input');
+
+const dateInput = document.createElement('input');
+dateInput.classList.add('date-input');
+
+const para1input = document.createElement('input');
+para1input.classList.add('para1-input');
+
+const para2input = document.createElement('input');
+para2input.classList.add('para2-input');
+
+const para3input = document.createElement('input');
+para3input.classList.add('para3-input');
+
+const articleForm = document.createElement('div');
+articleForm.classList.add('article-form');
+
+addButton.textContent = 'Add Article';
+addButton.classList.add('add-button');
+
+
+
+addButton.addEventListener('click', event => {
+
+let customTitle = document.querySelector('.title-input').value;
+let customDate =  document.querySelector('.date-input').value;
+let customParaOne = document.querySelector('.para1-input').value;
+let customParaTwo =  document.querySelector('.para2-input').value;
+let customParaThree =  document.querySelector('.para3-input').value;
+
+
+
+articles.prepend(createArticle(customTitle, customDate, customParaOne, customParaTwo, customParaThree));
+
+
+  
+});
+
+
+topHeader.appendChild(articleForm);
+
+articleForm.append(addButton);
+articleForm.append(titleInput);
+articleForm.append(dateInput);
+articleForm.append(para1input);
+articleForm.append(para2input);
+articleForm.append(para3input);

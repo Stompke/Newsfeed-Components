@@ -1,5 +1,8 @@
 .articles {
   margin-top: 95px;
+  display:flex;
+  flex-flow: column;
+  
 }
 .article {
   margin: 20px 10%;
@@ -9,6 +12,17 @@
   background-color: white;
   position: relative;
   height: 50px;
+
+  animation-name: close-article;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+
+  @keyframes close-article {
+    from {height: 300px;}
+    to {height: 50px;}
+  }
+
+ 
   overflow: hidden;
   box-shadow: 2px 2px 2px lightgrey;
 
@@ -42,7 +56,30 @@
 }
 
 .article-open {
-  height: auto;
+  // transition: height 2s;
+  // height: auto;
+  animation-name: open-article;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+}
+@keyframes open-article {
+  from {height: 50px;}
+  to {height: 300px;}
+}
 
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.fade-out {
+  animation-name: fade;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+}
+@keyframes fade {
+  from {opacity: 1}
+  to {opacity: 0}
 }
 

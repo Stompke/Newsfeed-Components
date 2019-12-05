@@ -40,7 +40,7 @@ function createMenu (array){
   const menu = document.createElement('div');
   const ulList = document.createElement('ul');
   
-  menu.classList.add('menu');
+  menu.classList.add('menu', 'menu--open');
 
   menu.appendChild(ulList);
 
@@ -63,7 +63,7 @@ header.appendChild(menu);
 const menuButton = document.querySelector('.menu-button');
 
 menuButton.addEventListener('click', function(){
-  menu.classList.toggle('menu--open');
+  // menu.classList.toggle('menu--open');
   console.log('clicked');
 });
 
